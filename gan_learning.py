@@ -9,23 +9,23 @@ from torch.utils.data import DataLoader
 
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_point")
-NETD_PATH = os.path.join(CHECKPOINT_DIR, "GAN_D950_D.pkl")
-NETG_PATH = os.path.join(CHECKPOINT_DIR, "GAN_G950_G.pkl")
+NETD_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_D950_D.pkl")
+NETG_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_G950_G.pkl")
 
 TOTAL_WORK_NUM = 60000
 BATCH_SIZE = 64
 RANDOM_NUM_COUNT = 5
-ART_POINT_COUNTS = 20
+ART_POINT_COUNTS = 100
 LEARNING_RATE_G = 0.0001  # learning rate for generator
 LEARNING_RATE_D = 0.0001  # learning rate for discriminator
 USE_GPU = True
-ART_COMPONENTS = 20  # it could be total point G can drew in the canvas
-PAINT_POINTS = np.vstack([np.linspace(-3, 3, ART_COMPONENTS) for _ in range(TOTAL_WORK_NUM)])
+ART_COMPONENTS = 100  # it could be total point G can drew in the canvas
+PAINT_POINTS = np.vstack([np.linspace(-3, 3, ART_POINT_COUNTS) for _ in range(TOTAL_WORK_NUM)])
 
 
 def artist_works(func="sin"):  # painting from the famous artist (real target)
     # a = np.random.uniform(1, 2, size=BATCH_SIZE)[:, np.newaxis]
-    r = 0.02 * np.random.randn(1, ART_COMPONENTS)
+    r = 0.02 * np.random.randn(1, ART_POINT_COUNTS)
     if func == "sin":
         paintings = np.sin(PAINT_POINTS) + r
     elif func == "tanh":
@@ -48,6 +48,10 @@ class Generator(nn.Module):
             nn.ReLU(),
             nn.Linear(256, 256),
             nn.ReLU(),
+            nn.Linear(256, 256),
+            nn.ReLU(),
+            nn.Linear(256, 256),
+            nn.ReLU(),
             nn.Linear(256, ART_POINT_COUNTS),
         )
 
@@ -64,6 +68,10 @@ class Discriminator(nn.Module):
             nn.Linear(ART_POINT_COUNTS, 128),
             nn.ReLU(),
             nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.Linear(256, 256),
+            nn.ReLU(),
+            nn.Linear(256, 256),
             nn.ReLU(),
             nn.Linear(256, 256),
             nn.ReLU(),
@@ -147,5 +155,5 @@ if __name__ == '__main__':
                       ((epoch + 1), (ite + 1), len(artist_paintings.dataset) // BATCH_SIZE,
                        d_total_loss.item(), g_loss.item()))
         if epoch % 50 == 0:
-            torch.save(G.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_G" + F"{epoch}" + "_G.pkl"))
-            torch.save(D.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_D" + F"{epoch}" + "_D.pkl"))
+            torch.save(G.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_G" + F"{epoch}" + "4_G.pkl"))
+            torch.save(D.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_D" + F"{epoch}" + "4_D.pkl"))
