@@ -9,8 +9,8 @@ from torch.utils.data import DataLoader
 
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_point")
-NETD_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_D950_D.pkl")
-NETG_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_G950_G.pkl")
+NETD_PATH = os.path.join(CHECKPOINT_DIR, "GAN_D950_D.pkl")
+NETG_PATH = os.path.join(CHECKPOINT_DIR, "GAN_G950_G.pkl")
 
 TOTAL_WORK_NUM = 60000
 BATCH_SIZE = 64
