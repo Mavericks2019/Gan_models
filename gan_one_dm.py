@@ -9,8 +9,8 @@ from torch.utils.data import DataLoader
 
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_point")
-NETD_PATH = os.path.join(CHECKPOINT_DIR, "GAN_D1504_D.pkl")
-NETG_PATH = os.path.join(CHECKPOINT_DIR, "GAN_G1504_G.pkl")
+NETD_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_D1504_D.pkl")
+NETG_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_G1504_G.pkl")
 
 TOTAL_WORK_NUM = 60000
 BATCH_SIZE = 64
@@ -19,7 +19,7 @@ ART_POINT_COUNTS = 50
 LEARNING_RATE_G = 0.0001  # learning rate for generator
 LEARNING_RATE_D = 0.0001  # learning rate for discriminator
 USE_GPU = True
-ART_COMPONENTS = 100  # it could be total point G can drew in the canvas
+ART_COMPONENTS = 50  # it could be total point G can drew in the canvas
 PAINT_POINTS = np.vstack([np.linspace(-3, 3, ART_POINT_COUNTS) for _ in range(TOTAL_WORK_NUM)])
 
 
