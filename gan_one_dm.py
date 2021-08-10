@@ -9,13 +9,13 @@ from torch.utils.data import DataLoader
 
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_point")
-NETD_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_D950_D.pkl")
-NETG_PATH = ""  # os.path.join(CHECKPOINT_DIR, "GAN_G950_G.pkl")
+NETD_PATH = os.path.join(CHECKPOINT_DIR, "GAN_D1504_D.pkl")
+NETG_PATH = os.path.join(CHECKPOINT_DIR, "GAN_G1504_G.pkl")
 
 TOTAL_WORK_NUM = 60000
 BATCH_SIZE = 64
 RANDOM_NUM_COUNT = 5
-ART_POINT_COUNTS = 100
+ART_POINT_COUNTS = 50
 LEARNING_RATE_G = 0.0001  # learning rate for generator
 LEARNING_RATE_D = 0.0001  # learning rate for discriminator
 USE_GPU = True
@@ -155,5 +155,5 @@ if __name__ == '__main__':
                       ((epoch + 1), (ite + 1), len(artist_paintings.dataset) // BATCH_SIZE,
                        d_total_loss.item(), g_loss.item()))
         if epoch % 50 == 0:
-            torch.save(G.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_G" + F"{epoch}" + "4_G.pkl"))
-            torch.save(D.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_D" + F"{epoch}" + "4_D.pkl"))
+            torch.save(G.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_G" + F"{epoch}" + "_50_G.pkl"))
+            torch.save(D.state_dict(), os.path.join(CHECKPOINT_DIR, "GAN_D" + F"{epoch}" + "_50_D.pkl"))
